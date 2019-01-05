@@ -1,0 +1,44 @@
+article:
+  template: abnt
+  title: Once upon a midnight dreary
+  institution: 
+  - Centro Estadual de Educação Tecnológica Paula Souza
+  - Faculdade de Tecnologia da Zona Leste
+  city: São Paulo
+  period: Janeiro-2019
+  authors:
+  - Vinicyus Macedo
+  articleContents:
+  # Automatically update the table of contents
+  - type: introduction
+    content: |
+      Essa é uma breve introdução sobre do Maillardet.
+  - title: O que é um corvo?
+    type: chapter
+    content: |
+      {citation:theraven}
+      {image:ravenpic}
+    # You can also include chapters
+    # include: corvo.txt
+    # Automatically render images with references
+    images: 
+      raven:
+        url: https://upload.wikimedia.org/wikipedia/commons/8/86/Tenniel-TheRaven.jpg
+        title: The Raven
+        accessDate: 01-01-2019
+    # Automatically update the bibliography
+    citations:
+      theraven:
+        content: |
+          Once upon a midnight dreary
+
+          as I pondered weak and weary
+        title: The Raven
+        author: Edgar Allan Poe
+    subchapters:
+    - mysubchapter
+  - title: Que som faz um corvo?
+    type: subchapter
+    id: mysubchapter
+    content: |
+      Nevermore!
