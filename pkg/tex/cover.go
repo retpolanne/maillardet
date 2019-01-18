@@ -5,10 +5,13 @@ type Cover struct {
 	Title       string
 	Institution []string
 	City        string
-	Period      string
+	Period      Period
 	Authors     []string
 	Orientation string
 	Area        string
+}
+
+type Period struct {
 }
 
 // GenerateCover will generate the cover section from a template to a string

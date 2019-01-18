@@ -49,9 +49,12 @@
 % ---
 % Pacotes básicos 
 % ---
-\usepackage{lmodern}			% Usa a fonte Latin Modern			
-\usepackage[T1]{fontenc}		% Selecao de codigos de fonte.
-\usepackage[utf8]{inputenc}		% Codificacao do documento (conversão automática dos acentos)
+\usepackage{fontspec}
+\usepackage[utf8]{inputenc}
+\defaultfontfeatures{Ligatures={TeX}}
+\setmainfont{Arial} 		    % Nome da fonte pricipal
+\setsansfont{Arial} 		    % Nome da fonte sem serifa
+\setmonofont[Scale=MatchLowercase]{Menlo} % Nome da fonte monoespaçada.
 \usepackage{indentfirst}		% Indenta o primeiro parágrafo de cada seção.
 \usepackage{color}				% Controle das cores
 \usepackage{graphicx}			% Inclusão de gráficos
@@ -94,11 +97,11 @@
 % ---
 % Informações de dados para CAPA e FOLHA DE ROSTO
 % ---
-\titulo{Modelo Canônico de\\ Trabalho Acadêmico com \abnTeX}
+\titulo{{{Title}}}
 \autor{Equipe \abnTeX}
 \local{Brasil}
 \data{2018, v-1.9.7}
-\orientador{Lauro César Araujo}
+\orientador{{{Orientation}}}
 \coorientador{Equipe \abnTeX}
 \instituicao{%
   Universidade do Brasil -- UBr
@@ -657,6 +660,7 @@ elementum}
 % ----------------------------------------------------------
 % Referências bibliográficas
 % ----------------------------------------------------------
+\renewcommand{\bibname}{Referências}
 \bibliography{abntex2-modelo-references}
 
 % ----------------------------------------------------------
