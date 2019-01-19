@@ -7,7 +7,6 @@ mappings:
     abstractEn: abstract.tex
     abstractPt: resumo.tex
     cover: capa.tex
-    coverSheet: folha-rosto.tex
     toc: sumario.tex
   textual:
     path: textuais

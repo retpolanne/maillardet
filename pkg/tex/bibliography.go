@@ -32,20 +32,28 @@ type Author struct {
 
 // ReferencedContent represents the metadata of an image or citation
 type ReferencedContent struct {
-	Title         string
-	Author        []Author
-	AccessDate    string
-	ReleaseYear   int
-	ReleaseCity   string
-	ReleaseEditor string
-	URL           string
-	Kind          string
+	// The ID should be something like LastnameYear (as in Macedo2019)
+	ID          string
+	Title       string
+	Subtitle    string
+	Authors     []string
+	AccessDate  string
+	ReleaseYear int
+	ReleaseCity string
+	Publisher   string
+	URL         string
+	Kind        string
 }
 
 // replaceAccents will find and replace accents to escaped accents, so they won't break on
 // bibtex when converted to uppercase
-func (content *ReferencedContent) replaceAccents() {
+func replaceAccents(text string) string {
+	return ""
+}
 
+// generateEtAll will take a list of authors and add them to a single string, separated by the word "and"
+func generateEtAll(authors []string) string {
+	return ""
 }
 
 // AddReferencedContent adds ReferencedContent to Bibliography
@@ -53,7 +61,12 @@ func (biblio *Bibliography) AddReferencedContent(content *ReferencedContent) {
 
 }
 
-// GenerateBibliography renders the bibliography to a string
+// GenerateReference will render a reference of any type from a template
+func GenerateReference(content *ReferencedContent) string {
+	return ""
+}
+
+// GenerateBibliography renders the whole bibliography to a string
 func (biblio *Bibliography) GenerateBibliography() string {
 	return ""
 }
