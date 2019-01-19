@@ -1,7 +1,12 @@
 package tex
 
-// ArticleContents holds a list of TextContents
-type ArticleContents struct {
+// ArticleSections holds a list of Sections
+type ArticleSections struct {
+	sections []Section
+}
+
+// Section holds a list of TextContents
+type Section struct {
 	contents []TextContent
 }
 

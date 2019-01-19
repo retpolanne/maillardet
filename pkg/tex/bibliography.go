@@ -1,5 +1,23 @@
 package tex
 
+var accents = map[string]string{
+	"á": `{\'a}`,
+	"â": `{\^a}`,
+	"ã": `{\~a}`,
+	"à": `{\` + "`" + `a}`,
+	"é": `{\'e}`,
+	"è": `{\` + "`" + `e}`,
+	"ê": `{\^e}`,
+	"í": `{\'\i}`,
+	"î": `{\^\i}`,
+	"ó": `{\'o}`,
+	"ô": `{\^o}`,
+	"õ": `{\~o}`,
+	"ú": `{\'u}`,
+	"û": `{\^u}`,
+	"ç": `{\c c}`,
+}
+
 // Bibliography is a struct that contains the list of books and websites
 type Bibliography struct {
 	Books    []ReferencedContent
@@ -24,8 +42,14 @@ type ReferencedContent struct {
 	Kind          string
 }
 
+// replaceAccents will find and replace accents to escaped accents, so they won't break on
+// bibtex when converted to uppercase
+func (content *ReferencedContent) replaceAccents() {
+
+}
+
 // AddReferencedContent adds ReferencedContent to Bibliography
-func AddReferencedContent(content *ReferencedContent) {
+func (biblio *Bibliography) AddReferencedContent(content *ReferencedContent) {
 
 }
 

@@ -19,3 +19,5 @@ var expectedCover = `
 \preambulo{Modelo canônico de trabalho monográfico acadêmico em conformidade com
 as normas ABNT apresentado à comunidade de usuários \LaTeX.}
 `
+
+var expectedTitle = `Modelo Canônico de\\ Trabalho Acadêmico com \abnTeX`
