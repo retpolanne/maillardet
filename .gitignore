@@ -243,3 +243,4 @@ TSWLatexianTemp*
 
 *.loq
 *.out.ps
+.DS_Store
