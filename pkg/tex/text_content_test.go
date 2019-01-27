@@ -14,14 +14,6 @@ func fakeChapter() *Chapter {
 	}
 }
 
-func fakeChapterWithCitation() *Chapter {
-	return &Chapter{
-		Title:   "Some chapter",
-		ID:      "somechapter",
-		Content: "According to [[citDoe2019]], John Doe is not his Doe's actual name.",
-	}
-}
-
 func fakeSection() *Chapter {
 	return &Chapter{
 		Title:   "Some section",
@@ -30,54 +22,24 @@ func fakeSection() *Chapter {
 	}
 }
 
-var expectedChapter = `\chapter{Some chapter}
-\label{chap:somechapter}
+var expectedChapter = `\chapter{Introdução}
+\label{chap:introducao}
 
-That's a line of chapter
-That's another line of chapter.`
+Essa é a introdução do nosso trabalho.
 
-var expectedSection = `\section{Some section}
-\label{chap:somesection}
+Essa é uma outra parte da introdução.`
 
-That's a line of section
-That's another line of section.`
+var expectedSection = `\section{Sobre o que é esse artigo?}
+\label{chap:sobreoque}
 
-var expectedDirectCitation = `\begin{citacao}
-	John Doe is not my name. This is a very common misconception. I could be called José da Silva, as well \cite{Doe2019}.
+De acordo com \citeonline{Doe2019}, esse é um exemplo de um arquivo yaml.
+      
+\begin{citacao}
+John Doe is not my name. This is a very common misconception. I could be called José da Silva, as well.
 \end{citacao}`
-
-var expectedTextWithInlineCitation = `\chapter{Another chapter}
-\label{chap:anotherchapter}
-
-According to \citeonline{Doe2019}, John Doe is not his Doe's actual name.`
-
-var expectedInlineCitation = `\citeonline{Doe2019}`
-
-var expectedImage = ``
-
-var expectedCompleteText = `\chapter{Some chapter}
-\label{chap:somechapter}
-
-That's a line of chapter
-That's another line of chapter.
-
-\section{Some section}
-\label{chap:somesection}
-
-That's a line of section
-That's another line of section.
-\chapter{Another chapter}
-\label{chap:anotherchapter}
-
-According to \citeonline{Doe2019}, John Doe is not his Doe's actual name.`
 
 func fakeTextContent() *TextContent {
 	return &TextContent{}
-}
-
-func TestGenerateTextContent(t *testing.T) {
-	generatedTextContent := fakeTextContent().GenerateTextContent()
-	assert.Equal(t, expectedCompleteText, generatedTextContent)
 }
 
 func TestGenerateChapter(t *testing.T) {
@@ -89,12 +51,5 @@ func TestGenerateSection(t *testing.T) {
 	generatedTextContent := fakeTextContent().GenerateTextContent()
 	assert.Equal(t, expectedSection, generatedTextContent)
 }
-
-func TestGenerateTextWithCitation(t *testing.T) {
-	generatedTextContent := fakeTextContent().GenerateTextContent()
-	assert.Equal(t, expectedTextWithInlineCitation, generatedTextContent)
-}
-
-func TestAddCitation(t *testing.T) {}
 
 func TestAddImage(t *testing.T) {}

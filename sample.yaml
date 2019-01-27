@@ -12,15 +12,19 @@ content:
   - title: Introdução
     id: introducao
     type: chapter
-    content: |
+    text: |
       Essa é a introdução do nosso trabalho.
+
+      Essa é uma outra parte da introdução.
   - title: Sobre o que é esse artigo?
     id: sobreoque
     type: section
-    contents: |
+    text: |
       De acordo com \citeonline{Doe2019}, esse é um exemplo de um arquivo yaml.
       
-      John Doe is not my name. This is a very common misconception. I could be called José da Silva, as well \cite{Doe2019}.
+      \begin{citacao}
+      John Doe is not my name. This is a very common misconception. I could be called José da Silva, as well.
+      \end{citacao}
     citations:
       - id: Doe2019
         title: Testando Referências
@@ -35,7 +39,7 @@ content:
   - title: Conclusão
     id: conclusao
     type: chapter
-    contents: |
+    text: |
       Segundo \citeonline{Doe2018}, concluímos assim esse trabalho.
     citations:
       - id: Doe2018
