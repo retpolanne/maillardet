@@ -1,5 +1,7 @@
 package tex
 
+// TODO - organize these so we can use them on the templates
+
 // Article holds a list of Chapters
 type Article struct {
 	Chapters []Chapter
@@ -7,9 +9,9 @@ type Article struct {
 
 // Chapter holds a list of TextContents
 type Chapter struct {
-	ID       string
-	Title    string `yaml:"title, omitempty"`
-	Contents []TextContent
+	ID      string
+	Title   string `yaml:"title, omitempty"`
+	Content string
 }
 
 // TextContent is an interface from which introduction and chapter
