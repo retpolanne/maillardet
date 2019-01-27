@@ -1,13 +1,15 @@
 package tex
 
-// ArticleSections holds a list of Sections
-type ArticleSections struct {
-	sections []Section
+// Article holds a list of Chapters
+type Article struct {
+	Chapters []Chapter
 }
 
-// Section holds a list of TextContents
-type Section struct {
-	contents []TextContent
+// Chapter holds a list of TextContents
+type Chapter struct {
+	ID       string
+	Title    string `yaml:"title, omitempty"`
+	Contents []TextContent
 }
 
 // TextContent is an interface from which introduction and chapter
@@ -15,6 +17,7 @@ type TextContent struct {
 	Title         string
 	ID            string
 	Content       string
+	Type          string
 	Images        []map[string]ReferencedContent
 	Citations     []map[string]ReferencedContent
 	SubchapterIDs []string

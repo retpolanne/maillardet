@@ -1,13 +1,17 @@
 package tex
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/stretchr/testify/assert"
+)
 
 var providedCover = &Cover{
 	Title:       "Maillardet: ferramenta de renderização de templates ABNT",
 	Institution: "Faculdade de Tecnologia da Zona Leste",
 	CourseArea:  "Curso de Análise e Desenvolvimento de Sistemas",
 	City:        "São Paulo, SP",
-	Period:      "Janeiro, 2019",
+	Period:      "2019",
 	Orientation: "Prof. Fulano de Tal",
 	Authors: []string{
 		"José Da Silva",
@@ -30,8 +34,12 @@ var expectedCover = `\titulo{Maillardet: ferramenta de renderização de templat
 \orientador{Prof. Fulano de Tal}`
 
 func TestShouldGenerateCover(t *testing.T) {
-	coverString := providedCover.GenerateCover()
-	if coverString != expectedCover {
-		t.Errorf("The generated covers differ: expected %s, got %s\n", expectedCover, coverString)
-	}
+	coverString, err := providedCover.GenerateCover()
+	assert.NoError(t, err)
+	assert.Equal(t, expectedCover, coverString)
+}
+
+func TestGenerateCoverError(t *testing.T) {
+	_, err := providedCover.GenerateCover()
+	assert.Error(t, err)
 }

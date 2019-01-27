@@ -8,17 +8,19 @@ article:
   period: Janeiro-2019
   authors:
   - Vinicyus Macedo
-  articleSections:
+  article:
   - title: Introdução
     # Automatically update the table of contents
     contents:
     - type: introduction
+      id: intro
       content: |
         Essa é uma breve introdução sobre do Maillardet.
   - title: Teoria
     contents:
     - title: O que é um corvo?
       type: chapter
+      id: crow
       content: |
         {citation:theraven}
         {image:ravenpic}

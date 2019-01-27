@@ -12,6 +12,6 @@ type Cover struct {
 }
 
 // GenerateCover will generate the cover section from a template to a string
-func (cover *Cover) GenerateCover() string {
-	return ""
+func (cover *Cover) GenerateCover() (string, error) {
+	return "", nil
 }
