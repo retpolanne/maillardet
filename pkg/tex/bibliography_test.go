@@ -16,15 +16,17 @@ var providedAuthors = []string{
 
 var expectedAuthors = "José da Silva and John Doe"
 
-var providedBookReference = &ReferencedContent{
-	ID:          "Doe2019",
-	Title:       "Testando Referências",
-	Subtitle:    "Uma forma eficaz de testar referências",
-	Authors:     providedAuthors,
-	Publisher:   "Publicações Tabajara",
-	ReleaseYear: "2019",
-	ReleaseCity: "São Paulo",
-	Kind:        "Book",
+func fakeBookReference() *ReferencedContent {
+	return &ReferencedContent{
+		ID:          "Doe2019",
+		Title:       "Testando Referências",
+		Subtitle:    "Uma forma eficaz de testar referências",
+		Authors:     providedAuthors,
+		Publisher:   "Publicações Tabajara",
+		ReleaseYear: "2019",
+		ReleaseCity: "São Paulo",
+		Kind:        "Book",
+	}
 }
 
 var expectedBookReference = `@Book{Doe2019,
@@ -36,13 +38,15 @@ var expectedBookReference = `@Book{Doe2019,
 	Subtitle                 = {Uma forma eficaz de testar refer{\^e}ncias},
   }`
 
-var providedWebsiteReference = &ReferencedContent{
-	ID:         "Doe2018",
-	Title:      "Outra forma de testar referências",
-	Authors:    providedAuthors,
-	AccessDate: "19 de janeiro de 2019",
-	URL:        "https://wikipedia.org",
-	Kind:       "Website",
+func fakeWebsiteReference() *ReferencedContent {
+	return &ReferencedContent{
+		ID:         "Doe2018",
+		Title:      "Outra forma de testar referências",
+		Authors:    providedAuthors,
+		AccessDate: "19 de janeiro de 2019",
+		URL:        "https://wikipedia.org",
+		Kind:       "Website",
+	}
 }
 
 var expectedWebsiteReference = `@Misc{Doe2018,
@@ -52,6 +56,13 @@ var expectedWebsiteReference = `@Misc{Doe2018,
 	Url                      = {https://wikipedia.org}
 	Urlaccessdate            = {19 de janeiro de 2019}
   }`
+
+func fakeBibliography() *Bibliography {
+	return &Bibliography{
+		Books:    []*ReferencedContent{fakeBookReference()},
+		Websites: []*ReferencedContent{fakeWebsiteReference()},
+	}
+}
 
 var expectedBibFile = `@Book{Doe2019,
 	Title                    = {Testando Refer{\^e}ncias},
@@ -69,15 +80,18 @@ var expectedBibFile = `@Book{Doe2019,
 	Urlaccessdate            = {19 de janeiro de 2019}
   }`
 
-func TestGenerateBibliography(t *testing.T) {}
+func TestGenerateBibliography(t *testing.T) {
+	generatedBibliography := fakeBibliography().GenerateBibliography()
+	assert.Equal(t, expectedBibFile, generatedBibliography)
+}
 
 func TestGenerateBookReference(t *testing.T) {
-	generatedBookReference := GenerateReference(providedBookReference)
+	generatedBookReference := GenerateReference(fakeBookReference())
 	assert.Equal(t, expectedBookReference, generatedBookReference)
 }
 
 func TestGenerateWebsiteReference(t *testing.T) {
-	generatedWebsiteReference := GenerateReference(providedWebsiteReference)
+	generatedWebsiteReference := GenerateReference(fakeWebsiteReference())
 	assert.Equal(t, expectedWebsiteReference, generatedWebsiteReference)
 }
 
@@ -95,3 +109,5 @@ func TestGenerateEtAll(t *testing.T) {
 	assert.Equal(t, expectedAuthors, etAll)
 }
 func TestGenerateEtAllShouldBeCalled(t *testing.T) {}
+
+func TestAddReferencedContent(t *testing.T) {}

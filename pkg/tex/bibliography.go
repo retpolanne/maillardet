@@ -20,8 +20,8 @@ var accents = map[string]string{
 
 // Bibliography is a struct that contains the list of books and websites
 type Bibliography struct {
-	Books    []ReferencedContent
-	Websites []ReferencedContent
+	Books    []*ReferencedContent
+	Websites []*ReferencedContent
 }
 
 // Author is a struct that represents an author
