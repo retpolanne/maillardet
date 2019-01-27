@@ -38,7 +38,7 @@ type ReferencedContent struct {
 	Subtitle    string
 	Authors     []string
 	AccessDate  string
-	ReleaseYear int
+	ReleaseYear string
 	ReleaseCity string
 	Publisher   string
 	URL         string

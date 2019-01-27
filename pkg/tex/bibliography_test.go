@@ -22,7 +22,7 @@ var providedBookReference = &ReferencedContent{
 	Subtitle:    "Uma forma eficaz de testar referências",
 	Authors:     providedAuthors,
 	Publisher:   "Publicações Tabajara",
-	ReleaseYear: 2019,
+	ReleaseYear: "2019",
 	ReleaseCity: "São Paulo",
 	Kind:        "Book",
 }

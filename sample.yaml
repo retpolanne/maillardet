@@ -1,0 +1,49 @@
+template: fateczl-abntex2-templates
+title: "Maillardet: ferramenta de renderização de templates ABNT"
+institution: Faculdade de Tecnologia da Zona Leste
+courseArea: Curso de Análise e Desenvolvimento de Sistemas
+period: "2019"
+city: São Paulo
+authors:
+  - John Doe
+  - José da Silva
+orientation: Prof. Fulano de Tal
+content:
+  - title: Introdução
+    id: introducao
+    type: chapter
+    content: |
+      Essa é a introdução do nosso trabalho.
+  - title: Sobre o que é esse artigo?
+    id: sobreoque
+    type: section
+    contents: |
+      De acordo com \citeonline{Doe2019}, esse é um exemplo de um arquivo yaml.
+      
+      John Doe is not my name. This is a very common misconception. I could be called José da Silva, as well \cite{Doe2019}.
+    citations:
+      - id: Doe2019
+        title: Testando Referências
+        subtitle: Uma forma eficaz de testar referências
+        authors:
+          - José da Silva
+          - John Doe
+        publisher: Publicações Tabajara
+        releaseYear: "2019"
+        releaseCity: São Paulo
+        kind: book
+  - title: Conclusão
+    id: conclusao
+    type: chapter
+    contents: |
+      Segundo \citeonline{Doe2018}, concluímos assim esse trabalho.
+    citations:
+      - id: Doe2018
+        title: Outra forma de testar referências
+        authors:
+          - José da Silva
+          - John Doe
+        accessDate: 19-01-2019
+        url: https://wikipedia.org
+        kind: website
+    
