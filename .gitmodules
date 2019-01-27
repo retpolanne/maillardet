@@ -1,3 +1,4 @@
 [submodule "fateczl-abntex2-templates"]
 	path = fateczl-abntex2-templates
 	url = https://github.com/vinicyusmacedo/fateczl-abntex2-templates.git
+	branch = templating
