@@ -24,10 +24,7 @@ var expectedCover = `\titulo{Maillardet: ferramenta de renderização de templat
 \data{2019}
 \projeto{Trabalho de Conclusão de Curso}
 \tituloAcademico{Tecnólogo}
-\areaconcentracao{}
-\linhapesquisa{}
 \instituicao{Faculdade de Tecnologia da Zona Leste}
-\departamento{}
 \programa{Curso de Análise e Desenvolvimento de Sistemas}
 \logoinstituicao{0.2}{figuras/logo-instituicao.png}
 \orientador{Prof. Fulano de Tal}`

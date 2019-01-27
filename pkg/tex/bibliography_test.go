@@ -23,16 +23,14 @@ var providedBookReference = &ReferencedContent{
 	Kind:        "Book",
 }
 
-var expectedBookReference = `
-@Book{Doe2019,
+var expectedBookReference = `@Book{Doe2019,
 	Title                    = {Testando Refer{\^e}ncias},
 	Author                   = {Jos{\'e} da Silva and John Doe},
 	Publisher                = {Publicações Tabajara},
 	Year                     = {2019},
 	Address                  = {S{\~a}o Paulo},
 	Subtitle                 = {Uma forma eficaz de testar refer{\^e}ncias},
-  }
-`
+  }`
 
 var providedWebsiteReference = &ReferencedContent{
 	ID:         "Doe2018",
@@ -43,15 +41,13 @@ var providedWebsiteReference = &ReferencedContent{
 	Kind:       "Website",
 }
 
-var expectedWebsiteReference = `
-@Misc{Doe2018,
+var expectedWebsiteReference = `@Misc{Doe2018,
 	Title                    = {Outra forma de testar refer{\^encias},
 	Author                   = {Jos{\'e} da Silva and John Doe},
 	Year                     = {2018},
 	Url                      = {https://wikipedia.org}
 	Urlaccessdate            = {19 de janeiro de 2019}
-  }
-`
+  }`
 
 func TestGenerateBibliography(t *testing.T) {}
 
