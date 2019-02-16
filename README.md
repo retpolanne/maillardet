@@ -1,4 +1,6 @@
 # maillardet
+[![Build Status](https://travis-ci.org/vinicyusmacedo/maillardet.svg?branch=master)](https://travis-ci.org/vinicyusmacedo/maillardet)
+
 Generating tex from yaml
 
 https://en.wikipedia.org/wiki/Maillardet%27s_automaton
