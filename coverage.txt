@@ -1,0 +1,13 @@
+mode: set
+github.com/vinicyusmacedo/maillardet/pkg/utils/templates.go:13.9,16.16 3 1
+github.com/vinicyusmacedo/maillardet/pkg/utils/templates.go:19.2,19.56 1 1
+github.com/vinicyusmacedo/maillardet/pkg/utils/templates.go:16.16,18.3 1 1
+github.com/vinicyusmacedo/maillardet/pkg/tex/cover.go:15.53,17.2 1 1
+github.com/vinicyusmacedo/maillardet/pkg/tex/text_content.go:22.44,23.2 0 0
+github.com/vinicyusmacedo/maillardet/pkg/tex/text_content.go:26.61,28.2 1 1
+github.com/vinicyusmacedo/maillardet/pkg/tex/text_content.go:31.56,33.2 1 1
+github.com/vinicyusmacedo/maillardet/pkg/tex/bibliography.go:50.41,52.2 1 1
+github.com/vinicyusmacedo/maillardet/pkg/tex/bibliography.go:55.45,57.2 1 1
+github.com/vinicyusmacedo/maillardet/pkg/tex/bibliography.go:60.79,62.2 0 0
+github.com/vinicyusmacedo/maillardet/pkg/tex/bibliography.go:65.59,67.2 1 1
+github.com/vinicyusmacedo/maillardet/pkg/tex/bibliography.go:70.59,72.2 1 1

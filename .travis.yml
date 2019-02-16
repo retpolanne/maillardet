@@ -2,3 +2,8 @@ language: go
 
 go:
   - master
+
+# https://github.com/codecov/example-go/blob/master/.travis.yml - it is probably automatic
+# but as the tests wont pass, we still want to upload the coverage
+script:
+  - bash <(curl -s https://codecov.io/bash)

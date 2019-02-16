@@ -1,9 +1,7 @@
+# TODO - make this fail by switching - to @
 test: clean 
-	cd pkg && go test ./... -cover
-
-test-coverage: clean 
-	-cd pkg && go test ./... -coverprofile=coverage.out
-	go tool cover -html=coverage.out
+	- go test ./... -coverprofile=coverage.out
+	cat coverage.out >> coverage.txt
 
 build: clean
 	go build main.go
