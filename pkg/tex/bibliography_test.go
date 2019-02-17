@@ -1,6 +1,7 @@
 package tex
 
 import (
+	"path/filepath"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -57,10 +58,15 @@ var expectedWebsiteReference = `@Misc{Doe2018,
 	Urlaccessdate            = {19 de janeiro de 2019}
   }`
 
+var fakeBibliographyTemplatePath = "$GOPATH/src/github.com/vinicyusmacedo/maillardet/fateczl-abntex2-templates"
+
 func fakeBibliography() *Bibliography {
 	return &Bibliography{
-		Books:    []*ReferencedContent{fakeBookReference()},
-		Websites: []*ReferencedContent{fakeWebsiteReference()},
+		Books:            []*ReferencedContent{fakeBookReference()},
+		Websites:         []*ReferencedContent{fakeWebsiteReference()},
+		templatePath:     filepath.Join(fakeBibliographyTemplatePath, "pos-textuais"),
+		templateFilename: "base-referencias.bib",
+		delims:           []string{"[[", "]]"},
 	}
 }
 

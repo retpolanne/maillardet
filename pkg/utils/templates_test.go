@@ -5,9 +5,14 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-
-	"github.com/vinicyusmacedo/maillardet/pkg/tex"
 )
+
+type fakeTestChapter struct {
+	Title string
+	ID    string
+	Kind  string
+	Text  string
+}
 
 var fakeChapterText = `Essa é a introdução do nosso trabalho.
 
@@ -27,8 +32,8 @@ var fakeTemplateName = "capitulos.tex"
 var fakeInvalidTemplateName = "invalid.tex"
 var fakeInexistentTemplateName = "inexistent.tex"
 
-func fakeChapter() *tex.TextContent {
-	return &tex.TextContent{
+func fakeChapter() *fakeTestChapter {
+	return &fakeTestChapter{
 		Title: "Introdução",
 		ID:    "introducao",
 		Kind:  "chapter",

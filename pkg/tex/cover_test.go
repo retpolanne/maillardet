@@ -1,23 +1,31 @@
 package tex
 
 import (
+	"path/filepath"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
 )
 
-var providedCover = &Cover{
-	Title:       "Maillardet: ferramenta de renderização de templates ABNT",
-	Institution: "Faculdade de Tecnologia da Zona Leste",
-	CourseArea:  "Curso de Análise e Desenvolvimento de Sistemas",
-	City:        "São Paulo, SP",
-	Period:      "2019",
-	Orientation: "Prof. Fulano de Tal",
-	Authors: []string{
-		"José Da Silva",
-		"John Doe",
-		"Jane Doe",
-	},
+var fakeCoverTemplatePath = "$GOPATH/src/github.com/vinicyusmacedo/maillardet/fateczl-abntex2-templates"
+
+func fakeCover() *Cover {
+	return &Cover{
+		Title:       "Maillardet: ferramenta de renderização de templates ABNT",
+		Institution: "Faculdade de Tecnologia da Zona Leste",
+		CourseArea:  "Curso de Análise e Desenvolvimento de Sistemas",
+		City:        "São Paulo, SP",
+		Period:      "2019",
+		Orientation: "Prof. Fulano de Tal",
+		Authors: []string{
+			"José Da Silva",
+			"John Doe",
+			"Jane Doe",
+		},
+		templatePath:     filepath.Join(fakeCoverTemplatePath, "pre-textuais"),
+		templateFilename: "capa.tex",
+		delims:           []string{"[[", "]]"},
+	}
 }
 
 var expectedCover = `\titulo{Maillardet: ferramenta de renderização de templates ABNT}
@@ -34,12 +42,14 @@ var expectedCover = `\titulo{Maillardet: ferramenta de renderização de templat
 \orientador{Prof. Fulano de Tal}`
 
 func TestShouldGenerateCover(t *testing.T) {
-	coverString, err := providedCover.GenerateCover()
+	coverString, err := fakeCover().GenerateCover()
 	assert.NoError(t, err)
 	assert.Equal(t, expectedCover, coverString)
 }
 
 func TestGenerateCoverError(t *testing.T) {
-	_, err := providedCover.GenerateCover()
+	cover := fakeCover()
+	cover.templateFilename = "invalid.tex"
+	_, err := cover.GenerateCover()
 	assert.Error(t, err)
 }
