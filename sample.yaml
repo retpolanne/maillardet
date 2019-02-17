@@ -1,4 +1,6 @@
 template: fateczl-abntex2-templates
+# TODO: this is temporary, as we still don't have a config cmd
+templatePath: $GOPATH/src/github.com/vinicyusmacedo/maillardet
 cover:
   title: "Maillardet: ferramenta de renderização de templates ABNT"
   institution: Faculdade de Tecnologia da Zona Leste

@@ -3,18 +3,19 @@ package utils
 import (
 	"html/template"
 	"io"
+	"os"
 	"path/filepath"
 )
 
 // RenderTemplateToWriter will render a template to any io.Writer
 func RenderTemplateToWriter(
-	writer io.Writer, templatePath string, templateName string,
+	writer io.Writer, fp *FileProperties,
 	data interface{}, delims []string,
 ) error {
-	fp := filepath.Join(templatePath, templateName)
-	tpl, err := template.New(templateName).Delims(delims[0], delims[1]).ParseFiles(fp)
+	fullPath := filepath.Join(os.ExpandEnv(fp.FilePath), fp.FileName)
+	tpl, err := template.New(fp.FileName).Delims(delims[0], delims[1]).ParseFiles(fullPath)
 	if err != nil {
 		return err
 	}
-	return tpl.ExecuteTemplate(writer, templateName, data)
+	return tpl.ExecuteTemplate(writer, fp.FileName, data)
 }
