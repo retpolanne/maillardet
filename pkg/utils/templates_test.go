@@ -59,7 +59,6 @@ func TestRenderTemplateFileNotFoundError(t *testing.T) {
 	var bWriter bytes.Buffer
 	err := RenderTemplateToWriter(&bWriter, fakeInvalidTemplatePath, fakeInexistentTemplateName, fakeChapter(), fakeDelims)
 	assert.Empty(t, bWriter)
-	assert.Contains(t, err.Error(), "no such file or directory")
 	assert.Error(t, err)
 }
 
