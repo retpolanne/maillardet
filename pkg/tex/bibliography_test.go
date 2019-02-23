@@ -106,14 +106,9 @@ func TestAccentuationIsEscaped(t *testing.T) {
 	assert.Equal(t, expectedAccentuation, accents)
 }
 
-func TestAccentuationEscapeShouldBeCalled(t *testing.T) {
-
-}
-
 func TestGenerateEtAll(t *testing.T) {
 	etAll := generateEtAll(providedAuthors)
 	assert.Equal(t, expectedAuthors, etAll)
 }
-func TestGenerateEtAllShouldBeCalled(t *testing.T) {}
 
 func TestAddReferencedContent(t *testing.T) {}
