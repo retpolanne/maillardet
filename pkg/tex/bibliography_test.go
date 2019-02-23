@@ -86,6 +86,8 @@ var expectedBibFile = `@Book{Doe2019,
 	Urlaccessdate            = {19 de janeiro de 2019}
   }`
 
+
+// TestGenerateBibliography should generate the whole bibliography
 func TestGenerateBibliography(t *testing.T) {
 	generatedBibliography := fakeBibliography().GenerateBibliography()
 	assert.Equal(t, expectedBibFile, generatedBibliography)
@@ -111,4 +113,16 @@ func TestGenerateEtAll(t *testing.T) {
 	assert.Equal(t, expectedAuthors, etAll)
 }
 
-func TestAddReferencedContent(t *testing.T) {}
+func TestAddReferencedWebsiteContent(t *testing.T) {
+	biblio := fakeBibliography()
+	websiteRef := fakeWebsiteReference()
+	biblio.AddReferencedContent(websiteRef)
+	assert.Equal(t, biblio.Websites[0], websiteRef)
+	websiteRef.Title = "Just another site"
+	biblio.AddReferencedContent(websiteRef)
+	assert.Equal(t, biblio.Websites[1], websiteRef)
+}
+
+func TestAddReferencedBookContent(t *testing.T) {
+
+}
