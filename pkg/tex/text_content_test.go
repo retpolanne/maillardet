@@ -1,10 +1,10 @@
 package tex
 
 import (
-	"path/filepath"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+	"github.com/vinicyusmacedo/maillardet/pkg/utils"
 )
 
 var fakeChapterText = `Essa é a introdução do nosso trabalho.
@@ -18,14 +18,28 @@ John Doe is not my name. This is a very common misconception. I could be called 
 \cite{Doe2019}
 \end{citacao}`
 
-var fakeContentTemplatePath = "$GOPATH/src/github.com/vinicyusmacedo/maillardet/fateczl-abntex2-templates"
+func fakeContents() *Contents {
+	return &Contents{
+		fakeChapter(),
+		fakeSection(),
+	}
+}
 
-func fakeContent() *Content {
-	return &Content{
-		Contents: []*TextContent{
-			fakeChapter(),
-			fakeSection(),
-		},
+func fakeChapterTemplateInfo() *utils.TemplateInfo {
+	return &utils.TemplateInfo{
+		TemplatePath: "$GOPATH/src/github.com/vinicyusmacedo/maillardet/fateczl-abntex2-templates",
+		Delims:       []string{"[[", "]]"},
+		Path:         "textuais",
+		FileName:     "capitulos.tex",
+	}
+}
+
+func fakeSectionTemplateInfo() *utils.TemplateInfo {
+	return &utils.TemplateInfo{
+		TemplatePath: "$GOPATH/src/github.com/vinicyusmacedo/maillardet/fateczl-abntex2-templates",
+		Delims:       []string{"[[", "]]"},
+		Path:         "textuais",
+		FileName:     "secoes.tex",
 	}
 }
 
@@ -47,26 +61,22 @@ func fakeReferencedContent() *ReferencedContent {
 
 func fakeChapter() *TextContent {
 	return &TextContent{
-		Title:            "Introdução",
-		ID:               "introducao",
-		Kind:             "chapter",
-		Text:             fakeChapterText,
-		templateFilename: "capitulos.tex",
-		templatePath:     filepath.Join(fakeContentTemplatePath, "textuais"),
-		delims:           []string{"[[", "]]"},
+		Title:        "Introdução",
+		ID:           "introducao",
+		Kind:         "chapter",
+		Text:         fakeChapterText,
+		TemplateInfo: fakeChapterTemplateInfo(),
 	}
 }
 
 func fakeSection() *TextContent {
 	return &TextContent{
-		Title:            "Sobre o que é esse artigo?",
-		ID:               "sobreoque",
-		Kind:             "section",
-		Text:             fakeSectionText,
-		Citations:        []*ReferencedContent{fakeReferencedContent()},
-		templateFilename: "secoes.tex",
-		templatePath:     filepath.Join(fakeContentTemplatePath, "textuais"),
-		delims:           []string{"[[", "]]"},
+		Title:        "Sobre o que é esse artigo?",
+		ID:           "sobreoque",
+		Kind:         "section",
+		Text:         fakeSectionText,
+		Citations:    []*ReferencedContent{fakeReferencedContent()},
+		TemplateInfo: fakeSectionTemplateInfo(),
 	}
 }
 
@@ -93,15 +103,16 @@ var expectedContentString = `\chapter{Introdução}
 Essa é a introdução do nosso trabalho.
 
 Essa é uma outra parte da introdução.
-section{Sobre o que é esse artigo?}
-\label{chap:sobreoque}
+\section{Sobre o que é esse artigo?}
+\label{sec:sobreoque}
 
 De acordo com \citeonline{Doe2019}, esse é um exemplo de um arquivo yaml.
 
 \begin{citacao}
 John Doe is not my name. This is a very common misconception. I could be called José da Silva, as well.
 \cite{Doe2019}
-\end{citacao}`
+\end{citacao}
+`
 
 func fakeTextContent() *TextContent {
 	return &TextContent{}
@@ -109,7 +120,9 @@ func fakeTextContent() *TextContent {
 
 func TestGenerateTextContentError(t *testing.T) {
 	textContent := fakeChapter()
-	textContent.templateFilename = "inexistent.tex"
+	templateInfo := fakeChapterTemplateInfo()
+	templateInfo.FileName = "inexistent.tex"
+	textContent.TemplateInfo = templateInfo
 	_, err := textContent.GenerateTextContent()
 	assert.Error(t, err)
 }
@@ -125,11 +138,19 @@ func TestGenerateSection(t *testing.T) {
 	assert.NoError(t, err)
 }
 
-func TestContentWithCitationShouldUpdateReferences(t *testing.T) {}
-
 func TestGenerateContentString(t *testing.T) {
-	generatedContentString := fakeContent().GenerateContentString()
+	generatedContentString, err := fakeContents().GenerateContentString()
 	assert.Equal(t, expectedContentString, generatedContentString)
+	assert.NoError(t, err)
 }
 
-func TestAddImage(t *testing.T) {}
+func TestGenerateContentErrorShouldReturnError(t *testing.T) {
+	textContent := fakeChapter()
+	templateInfo := fakeChapterTemplateInfo()
+	templateInfo.FileName = "inexistent.tex"
+	textContent.TemplateInfo = templateInfo
+	fakeContents := fakeContents()
+	newContent := append(*fakeContents, textContent)
+	_, err := newContent.GenerateContentString()
+	assert.Error(t, err)
+}

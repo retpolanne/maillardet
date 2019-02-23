@@ -1,8 +1,9 @@
 package tex
 
 import (
-	"path/filepath"
 	"testing"
+
+	"github.com/vinicyusmacedo/maillardet/pkg/utils"
 
 	"github.com/stretchr/testify/assert"
 )
@@ -17,16 +18,26 @@ var providedAuthors = []string{
 
 var expectedAuthors = "José da Silva and John Doe"
 
+func fakeBibliographyTemplateInfo() *utils.TemplateInfo {
+	return &utils.TemplateInfo{
+		TemplatePath: "$GOPATH/src/github.com/vinicyusmacedo/maillardet/fateczl-abntex2-templates",
+		Delims:       []string{"[[", "]]"},
+		Path:         "pos-textuais",
+		FileName:     "base-referencias.bib",
+	}
+}
+
 func fakeBookReference() *ReferencedContent {
 	return &ReferencedContent{
-		ID:          "Doe2019",
-		Title:       "Testando Referências",
-		Subtitle:    "Uma forma eficaz de testar referências",
-		Authors:     providedAuthors,
-		Publisher:   "Publicações Tabajara",
-		ReleaseYear: "2019",
-		ReleaseCity: "São Paulo",
-		Kind:        "Book",
+		ID:           "Doe2019",
+		Title:        "Testando Referências",
+		Subtitle:     "Uma forma eficaz de testar referências",
+		Authors:      providedAuthors,
+		Publisher:    "Publicações Tabajara",
+		ReleaseYear:  "2019",
+		ReleaseCity:  "São Paulo",
+		Kind:         "Book",
+		TemplateInfo: fakeBibliographyTemplateInfo(),
 	}
 }
 
@@ -41,12 +52,13 @@ var expectedBookReference = `@Book{Doe2019,
 
 func fakeWebsiteReference() *ReferencedContent {
 	return &ReferencedContent{
-		ID:         "Doe2018",
-		Title:      "Outra forma de testar referências",
-		Authors:    providedAuthors,
-		AccessDate: "19 de janeiro de 2019",
-		URL:        "https://wikipedia.org",
-		Kind:       "Website",
+		ID:           "Doe2018",
+		Title:        "Outra forma de testar referências",
+		Authors:      providedAuthors,
+		AccessDate:   "19 de janeiro de 2019",
+		URL:          "https://wikipedia.org",
+		Kind:         "Website",
+		TemplateInfo: fakeBibliographyTemplateInfo(),
 	}
 }
 
@@ -62,11 +74,8 @@ var fakeBibliographyTemplatePath = "$GOPATH/src/github.com/vinicyusmacedo/mailla
 
 func fakeBibliography() *Bibliography {
 	return &Bibliography{
-		Books:            []*ReferencedContent{fakeBookReference()},
-		Websites:         []*ReferencedContent{fakeWebsiteReference()},
-		templatePath:     filepath.Join(fakeBibliographyTemplatePath, "pos-textuais"),
-		templateFilename: "base-referencias.bib",
-		delims:           []string{"[[", "]]"},
+		Books:    []*ReferencedContent{fakeBookReference()},
+		Websites: []*ReferencedContent{fakeWebsiteReference()},
 	}
 }
 
@@ -111,4 +120,22 @@ func TestGenerateEtAll(t *testing.T) {
 	assert.Equal(t, expectedAuthors, etAll)
 }
 
-func TestAddReferencedContent(t *testing.T) {}
+func TestAddReferencedWebsiteContent(t *testing.T) {
+	biblio := fakeBibliography()
+	websiteRef := fakeWebsiteReference()
+	biblio.AddReferencedContent(websiteRef)
+	assert.Equal(t, biblio.Websites[0], websiteRef)
+	websiteRef.Title = "Just another site"
+	biblio.AddReferencedContent(websiteRef)
+	assert.Equal(t, biblio.Websites[1], websiteRef)
+}
+
+func TestAddReferencedBookContent(t *testing.T) {
+	biblio := fakeBibliography()
+	bookRef := fakeBookReference()
+	biblio.AddReferencedContent(bookRef)
+	assert.Equal(t, biblio.Books[0], bookRef)
+	bookRef.Title = "Just another book"
+	biblio.AddReferencedContent(bookRef)
+	assert.Equal(t, biblio.Websites[1], bookRef)
+}

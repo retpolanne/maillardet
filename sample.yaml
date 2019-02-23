@@ -11,7 +11,7 @@ cover:
     - John Doe
     - José da Silva
   orientation: Prof. Fulano de Tal
-content:
+contents:
   - title: Introdução
     id: introducao
     kind: chapter

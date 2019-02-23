@@ -1,5 +1,9 @@
 package tex
 
+import (
+	"github.com/vinicyusmacedo/maillardet/pkg/utils"
+)
+
 var accents = map[string]string{
 	"á": `{\'a}`,
 	"â": `{\^a}`,
@@ -20,11 +24,8 @@ var accents = map[string]string{
 
 // Bibliography is a struct that contains the list of books and websites
 type Bibliography struct {
-	Books            []*ReferencedContent
-	Websites         []*ReferencedContent
-	templatePath     string
-	templateFilename string
-	delims           []string
+	Books    []*ReferencedContent
+	Websites []*ReferencedContent
 }
 
 // Author is a struct that represents an author
@@ -36,16 +37,17 @@ type Author struct {
 // ReferencedContent represents the metadata of an image or citation
 type ReferencedContent struct {
 	// The ID should be something like LastnameYear (as in Macedo2019)
-	ID          string
-	Title       string
-	Subtitle    string
-	Authors     []string
-	AccessDate  string
-	ReleaseYear string
-	ReleaseCity string
-	Publisher   string
-	URL         string
-	Kind        string
+	ID           string   `yaml:"id"`
+	Title        string   `yaml:"title"`
+	Subtitle     string   `yaml:"subtitle, omitempty"`
+	Authors      []string `yaml:"authors"`
+	AccessDate   string   `yaml:"accessDate, omitempty"`
+	ReleaseYear  string   `yaml:"releaseYear, omitempty"`
+	ReleaseCity  string   `yaml:"releaseCity, omitempty"`
+	Publisher    string   `yaml:"publisher, omitempty"`
+	URL          string   `yaml:"url, omitempty"`
+	Kind         string   `yaml:"kind"`
+	TemplateInfo *utils.TemplateInfo
 }
 
 // replaceAccents will find and replace accents to escaped accents, so they won't break on

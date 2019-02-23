@@ -1,13 +1,20 @@
 package tex
 
 import (
-	"path/filepath"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+	"github.com/vinicyusmacedo/maillardet/pkg/utils"
 )
 
-var fakeCoverTemplatePath = "$GOPATH/src/github.com/vinicyusmacedo/maillardet/fateczl-abntex2-templates"
+func fakeCoverTemplateInfo() *utils.TemplateInfo {
+	return &utils.TemplateInfo{
+		TemplatePath: "$GOPATH/src/github.com/vinicyusmacedo/maillardet/fateczl-abntex2-templates",
+		Delims:       []string{"[[", "]]"},
+		Path:         "pre-textuais",
+		FileName:     "capa.tex",
+	}
+}
 
 func fakeCover() *Cover {
 	return &Cover{
@@ -22,9 +29,7 @@ func fakeCover() *Cover {
 			"John Doe",
 			"Jane Doe",
 		},
-		templatePath:     filepath.Join(fakeCoverTemplatePath, "pre-textuais"),
-		templateFilename: "capa.tex",
-		delims:           []string{"[[", "]]"},
+		TemplateInfo: fakeCoverTemplateInfo(),
 	}
 }
 
@@ -49,7 +54,9 @@ func TestShouldGenerateCover(t *testing.T) {
 
 func TestGenerateCoverError(t *testing.T) {
 	cover := fakeCover()
-	cover.templateFilename = "invalid.tex"
+	templateInfo := fakeCoverTemplateInfo()
+	templateInfo.FileName = "invalid.tex"
+	cover.TemplateInfo = templateInfo
 	_, err := cover.GenerateCover()
 	assert.Error(t, err)
 }

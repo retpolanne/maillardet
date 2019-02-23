@@ -17,7 +17,6 @@ type fakeTestChapter struct {
 var fakeChapterText = `Essa é a introdução do nosso trabalho.
 
 Essa é uma outra parte da introdução.`
-var fakeDelims = []string{"[[", "]]"}
 
 var expectedRenderedTemplate = `\chapter{Introdução}
 \label{chap:introducao}
@@ -25,12 +24,6 @@ var expectedRenderedTemplate = `\chapter{Introdução}
 Essa é a introdução do nosso trabalho.
 
 Essa é uma outra parte da introdução.`
-
-var fakeTemplatePath = "../../fateczl-abntex2-templates/textuais"
-var fakeInvalidTemplatePath = "../../fixtures"
-var fakeTemplateName = "capitulos.tex"
-var fakeInvalidTemplateName = "invalid.tex"
-var fakeInexistentTemplateName = "inexistent.tex"
 
 func fakeChapter() *fakeTestChapter {
 	return &fakeTestChapter{
@@ -41,30 +34,57 @@ func fakeChapter() *fakeTestChapter {
 	}
 }
 
+func fakeTemplate() *TemplateInfo {
+	return &TemplateInfo{
+		TemplatePath: "../../fateczl-abntex2-templates",
+		Delims:       []string{"[[", "]]"},
+		Path:         "textuais",
+		FileName:     "capitulos.tex",
+	}
+}
+
+func fakeInvalidTemplate() *TemplateInfo {
+	return &TemplateInfo{
+		TemplatePath: "../../fixtures",
+		Delims:       []string{"[[", "]]"},
+		Path:         "",
+		FileName:     "invalid.tex",
+	}
+}
+
+func fakeInexistentTemplate() *TemplateInfo {
+	return &TemplateInfo{
+		TemplatePath: "../../fixtures",
+		Delims:       []string{"[[", "]]"},
+		Path:         "textuais",
+		FileName:     "inexistent.tex",
+	}
+}
+
 func TestRenderTemplateToWriter(t *testing.T) {
 	var bWriter bytes.Buffer
-	err := RenderTemplateToWriter(&bWriter, fakeTemplatePath, fakeTemplateName, fakeChapter(), fakeDelims)
+	err := fakeTemplate().RenderTemplateToWriter(&bWriter, fakeChapter())
 	assert.Equal(t, expectedRenderedTemplate, bWriter.String())
 	assert.NoError(t, err)
 }
 
 func TestRenderTemplateError(t *testing.T) {
 	var bWriter bytes.Buffer
-	err := RenderTemplateToWriter(&bWriter, fakeInvalidTemplatePath, fakeInvalidTemplateName, fakeChapter(), fakeDelims)
+	err := fakeInvalidTemplate().RenderTemplateToWriter(&bWriter, fakeChapter())
 	assert.Empty(t, bWriter)
 	assert.Error(t, err)
 }
 
 func TestRenderTemplateFileNotFoundError(t *testing.T) {
 	var bWriter bytes.Buffer
-	err := RenderTemplateToWriter(&bWriter, fakeInvalidTemplatePath, fakeInexistentTemplateName, fakeChapter(), fakeDelims)
+	err := fakeInexistentTemplate().RenderTemplateToWriter(&bWriter, fakeChapter())
 	assert.Empty(t, bWriter)
 	assert.Error(t, err)
 }
 
 func TestRenderTemplateInvalidError(t *testing.T) {
 	var bWriter bytes.Buffer
-	err := RenderTemplateToWriter(&bWriter, fakeInvalidTemplatePath, fakeInvalidTemplateName, fakeChapter(), fakeDelims)
+	err := fakeInvalidTemplate().RenderTemplateToWriter(&bWriter, fakeChapter())
 	assert.Empty(t, bWriter)
 	assert.Contains(t, err.Error(), "undefined variable")
 	assert.Error(t, err)
