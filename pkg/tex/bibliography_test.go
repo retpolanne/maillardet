@@ -8,7 +8,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-var providedAccentuation = `áàâãéêèîíôõóûúç`
+var providedAccentuation = `áàâãéêèîíôõóûúçc`
 var expectedAccentuation = `{\'a}{\` + "`" + `a}{\^a}{\~a}{\'e}{\^e}{\` + "`" + `e}{\^\i}{\'\i}{\~o}{\^o}{\'o}{\^u}{\'u}{\c c}`
 
 var providedAuthors = []string{
@@ -102,42 +102,48 @@ func TestGenerateBibliography(t *testing.T) {
 	assert.Equal(t, expectedBibFile, generatedBibliography)
 }
 
+// TestGenerateBookReference should generate the book reference
 func TestGenerateBookReference(t *testing.T) {
 	generatedBookReference := GenerateReference(fakeBookReference())
 	assert.Equal(t, expectedBookReference, generatedBookReference)
 }
 
+//TestGenerateWebsiteReference should generate the website reference
 func TestGenerateWebsiteReference(t *testing.T) {
 	generatedWebsiteReference := GenerateReference(fakeWebsiteReference())
 	assert.Equal(t, expectedWebsiteReference, generatedWebsiteReference)
 }
 
-func TestAccentuationIsEscaped(t *testing.T) {
+//TestReplaceAccents should check accents replacements
+func TestReplaceAccents(t *testing.T) {
 	accents := replaceAccents(providedAccentuation)
 	assert.Equal(t, expectedAccentuation, accents)
 }
 
+//TestGenerateEtAll should generate authors citation
 func TestGenerateEtAll(t *testing.T) {
 	etAll := generateEtAll(providedAuthors)
 	assert.Equal(t, expectedAuthors, etAll)
 }
 
+//TestAddReferencedWebsiteContent should check website reference addition
 func TestAddReferencedWebsiteContent(t *testing.T) {
 	biblio := fakeBibliography()
 	websiteRef := fakeWebsiteReference()
-	biblio.AddReferencedContent(websiteRef)
+	biblio.AddReferencedWebsiteContent(websiteRef)
 	assert.Equal(t, biblio.Websites[0], websiteRef)
 	websiteRef.Title = "Just another site"
-	biblio.AddReferencedContent(websiteRef)
+	biblio.AddReferencedWebsiteContent(websiteRef)
 	assert.Equal(t, biblio.Websites[1], websiteRef)
 }
 
+//TestAddReferencedBookContent should check book reference addition
 func TestAddReferencedBookContent(t *testing.T) {
 	biblio := fakeBibliography()
 	bookRef := fakeBookReference()
-	biblio.AddReferencedContent(bookRef)
+	biblio.AddReferencedBookContent(bookRef)
 	assert.Equal(t, biblio.Books[0], bookRef)
 	bookRef.Title = "Just another book"
-	biblio.AddReferencedContent(bookRef)
+	biblio.AddReferencedBookContent(bookRef)
 	assert.Equal(t, biblio.Websites[1], bookRef)
 }

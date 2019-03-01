@@ -2,6 +2,7 @@ package tex
 
 import (
 	"github.com/vinicyusmacedo/maillardet/pkg/utils"
+	"strings"
 )
 
 var accents = map[string]string{
@@ -53,17 +54,27 @@ type ReferencedContent struct {
 // replaceAccents will find and replace accents to escaped accents, so they won't break on
 // bibtex when converted to uppercase
 func replaceAccents(text string) string {
-	return ""
+	for key, value := range accents {
+		text = strings.Replace (text, key, value, -1)
+	}
+	return text 
 }
 
 // generateEtAll will take a list of authors and add them to a single string, separated by the word "and"
 func generateEtAll(authors []string) string {
-	return ""
+	result := ""
+	result = strings.Join(authors, " and ")
+	return result
 }
 
-// AddReferencedContent adds ReferencedContent to Bibliography
-func (biblio *Bibliography) AddReferencedContent(content *ReferencedContent) {
+// AddReferencedWebsiteContent adds ReferencedWebsiteContent to Bibliography
+func (biblio *Bibliography) AddReferencedWebsiteContent(content *ReferencedContent) {
+	biblio.Websites = append(biblio.Websites, content)
+}
 
+// AddReferencedBookContent adds ReferencedBookContent to Bibliography
+func (biblio *Bibliography) AddReferencedBookContent(content *ReferencedContent) {
+	biblio.Books = append(biblio.Books, content)
 }
 
 // GenerateReference will render a reference of any type from a template

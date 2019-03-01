@@ -2,7 +2,6 @@ package tex
 
 import (
 	"testing"
-
 	"github.com/stretchr/testify/assert"
 	"github.com/vinicyusmacedo/maillardet/pkg/utils"
 )
